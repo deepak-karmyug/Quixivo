@@ -84,7 +84,7 @@ export default function DemoSection() {
               }}
             >
               <a
-                href="tel:+918888000000"
+                href="tel:+918770924535"
                 className="btn-primary"
                 style={{ fontSize: 16, padding: "14px 28px" }}
               >

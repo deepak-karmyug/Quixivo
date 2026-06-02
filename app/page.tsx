@@ -25,7 +25,7 @@ export default function Home() {
       <ProblemSolving />
       <StudentPortal />
       <Testimonials />
-      <Pricing />
+      {/* <Pricing /> */}
       <DemoSection />
       <Footer />
     </main>

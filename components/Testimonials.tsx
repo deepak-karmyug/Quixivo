@@ -1,4 +1,5 @@
 "use client";
+import { useEffect, useRef } from "react";
 import { Star, Quote } from "lucide-react";
 
 const testimonials = [
@@ -53,6 +54,46 @@ const testimonials = [
 ];
 
 export default function Testimonials() {
+  const scrollerRef = useRef<HTMLDivElement>(null);
+  const pauseUntilRef = useRef(0);
+  const mobileTestimonials = [...testimonials, ...testimonials];
+
+  useEffect(() => {
+    const scroller = scrollerRef.current;
+    if (!scroller) return;
+
+    const media = window.matchMedia("(max-width: 767px)");
+    let frame = 0;
+    let lastTime = performance.now();
+    pauseUntilRef.current = performance.now() + 600;
+
+    const tick = (time: number) => {
+      if (
+        media.matches &&
+        time > pauseUntilRef.current &&
+        scroller.scrollWidth > scroller.clientWidth
+      ) {
+        const delta = time - lastTime;
+        const midpoint = scroller.scrollWidth / 2;
+        scroller.scrollLeft += delta * 0.075;
+
+        if (scroller.scrollLeft >= midpoint) {
+          scroller.scrollLeft -= midpoint;
+        }
+      }
+
+      lastTime = time;
+      frame = requestAnimationFrame(tick);
+    };
+
+    frame = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frame);
+  }, []);
+
+  const pauseAutoScroll = () => {
+    pauseUntilRef.current = performance.now() + 1800;
+  };
+
   return (
     <section
       style={{
@@ -84,17 +125,23 @@ export default function Testimonials() {
         </div>
 
         <div
+          ref={scrollerRef}
+          onPointerDown={pauseAutoScroll}
+          onTouchStart={pauseAutoScroll}
+          onWheel={pauseAutoScroll}
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(3,1fr)",
             gap: 20,
           }}
-          className="test-grid"
+          className="test-grid testimonial-track"
         >
-          {testimonials.map((t) => (
+          {mobileTestimonials.map((t, index) => (
             <div
-              key={t.name}
-              className="card-hover"
+              key={`${t.name}-${index}`}
+              className={`card-hover testimonial-card ${
+                index >= testimonials.length ? "testimonial-duplicate" : ""
+              }`}
               style={{
                 background: "var(--surface)",
                 border: "1px solid rgba(255,255,255,0.06)",
@@ -170,7 +217,40 @@ export default function Testimonials() {
         </div>
       </div>
       <style>{`
-        @media (max-width: 767px) { .test-grid { grid-template-columns: 1fr !important; } }
+        @media (min-width: 768px) { .testimonial-duplicate { display: none !important; } }
+        @media (max-width: 767px) {
+          .test-grid.testimonial-track {
+            display: flex !important;
+            grid-template-columns: none !important;
+            gap: 14px !important;
+            overflow-x: auto;
+            overflow-y: hidden;
+            scroll-snap-type: x proximity;
+            -webkit-overflow-scrolling: touch;
+            padding: 0 4px 14px;
+          }
+
+          .test-grid.testimonial-track::-webkit-scrollbar {
+            height: 6px;
+          }
+
+          .test-grid.testimonial-track::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.06);
+            border-radius: 999px;
+          }
+
+          .test-grid.testimonial-track::-webkit-scrollbar-thumb {
+            background: var(--brand);
+            border-radius: 999px;
+          }
+
+          .testimonial-card {
+            flex: 0 0 min(84vw, 340px);
+            scroll-snap-align: start;
+            border-radius: 14px !important;
+            padding: 22px !important;
+          }
+        }
         @media (min-width: 768px) and (max-width: 1023px) { .test-grid { grid-template-columns: repeat(2,1fr) !important; } }
       `}</style>
     </section>

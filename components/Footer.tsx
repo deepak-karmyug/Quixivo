@@ -4,83 +4,54 @@ import {
   Mail,
   Phone,
   MapPin,
-  Twitter,
   Linkedin,
+  Instagram,
+  MessageCircle,
   Youtube,
-  Github,
 } from "lucide-react";
 
 export default function Footer() {
-  const cols = [
+  const contacts = [
     {
-      title: "Product",
-      links: [
-        "Features",
-        "Live Classes",
-        "Student Portal",
-        "Pricing",
-        "Changelog",
-        "Roadmap",
-      ],
+      icon: Mail,
+      text: "karmyugtechzone@gmail.com",
+      href: "mailto:karmyugtechzone@gmail.com",
     },
-    {
-      title: "Company",
-      links: [
-        "About Us",
-        "Blog",
-        "Careers",
-        "Press Kit",
-        "Partners",
-        "Contact",
-      ],
-    },
-    {
-      title: "Resources",
-      links: [
-        "Documentation",
-        "API Reference",
-        "Help Center",
-        "Video Tutorials",
-        "Community",
-        "Status Page",
-      ],
-    },
-    {
-      title: "Legal",
-      links: [
-        "Privacy Policy",
-        "Terms of Service",
-        "Cookie Policy",
-        "GDPR",
-        "Security",
-        "Refund Policy",
-      ],
-    },
+    { icon: Phone, text: "+91 8770924535", href: "tel:+918770924535" },
+    { icon: MapPin, text: "Ratlam, India", href: "#" },
+  ];
+
+  const socials = [
+    { icon: Linkedin, label: "LinkedIn" },
+    { icon: Instagram, label: "Instagram" },
+    { icon: MessageCircle, label: "WhatsApp" },
+    { icon: Youtube, label: "YouTube" },
   ];
 
   return (
     <footer
       style={{
         borderTop: "1px solid rgba(255,255,255,0.06)",
-        padding: "60px 24px 0",
+        padding: "44px 24px",
       }}
     >
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>
         <div
           style={{
-            display: "grid",
-            gridTemplateColumns: "2fr 1fr 1fr 1fr 1fr",
-            gap: 40,
-            marginBottom: 48,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            textAlign: "center",
+            gap: 22,
           }}
           className="footer-grid"
         >
-          {/* Brand */}
-          <div>
+          <div style={{ maxWidth: 520 }}>
             <div
               style={{
                 display: "flex",
                 alignItems: "center",
+                justifyContent: "center",
                 gap: 10,
                 marginBottom: 14,
               }}
@@ -110,7 +81,7 @@ export default function Footer() {
                 color: "var(--muted)",
                 lineHeight: 1.7,
                 marginBottom: 20,
-                maxWidth: 240,
+                maxWidth: 460,
               }}
             >
               All-in-one institute management platform trusted by 3,000+
@@ -119,139 +90,86 @@ export default function Footer() {
             <div
               style={{
                 display: "flex",
-                flexDirection: "column",
-                gap: 8,
-                marginBottom: 20,
+                justifyContent: "center",
+                gap: 18,
+                flexWrap: "wrap",
               }}
+              className="footer-contact-row"
             >
-              {[
-                { icon: Mail, text: "karmyugtechzone@gmail.com" },
-                { icon: Phone, text: "+91 8770924535" },
-                { icon: MapPin, text: "Ratlam, India" },
-              ].map((c) => (
-                <div
+              {contacts.map((c) => (
+                <a
                   key={c.text}
-                  style={{ display: "flex", alignItems: "center", gap: 8 }}
+                  href={c.href}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 8,
+                    whiteSpace: "nowrap",
+                    color: "var(--muted)",
+                    textDecoration: "none",
+                  }}
                 >
                   <c.icon size={13} color="var(--muted)" />
                   <span style={{ fontSize: 13, color: "var(--muted)" }}>
                     {c.text}
                   </span>
-                </div>
-              ))}
-            </div>
-            <div style={{ display: "flex", gap: 8 }}>
-              {[Twitter, Linkedin, Youtube, Github].map((Icon, i) => (
-                <a
-                  key={i}
-                  href="#"
-                  style={{
-                    width: 34,
-                    height: 34,
-                    background: "var(--surface)",
-                    border: "1px solid rgba(255,255,255,0.08)",
-                    borderRadius: 8,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    color: "var(--muted)",
-                    transition: "all 0.2s",
-                    textDecoration: "none",
-                  }}
-                  onMouseEnter={(e) => {
-                    (e.currentTarget as HTMLElement).style.background =
-                      "rgba(99,102,241,0.15)";
-                    (e.currentTarget as HTMLElement).style.color =
-                      "var(--brand2)";
-                  }}
-                  onMouseLeave={(e) => {
-                    (e.currentTarget as HTMLElement).style.background =
-                      "var(--surface)";
-                    (e.currentTarget as HTMLElement).style.color =
-                      "var(--muted)";
-                  }}
-                >
-                  <Icon size={15} />
                 </a>
               ))}
             </div>
           </div>
 
-          {/* Link cols */}
-          {cols.map((col) => (
-            <div key={col.title}>
-              <div
+          <div
+            style={{
+              display: "flex",
+              gap: 10,
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            {socials.map(({ icon: Icon, label }) => (
+              <a
+                key={label}
+                href="#"
+                aria-label={label}
                 style={{
-                  fontSize: 13,
-                  fontWeight: 700,
-                  color: "var(--text)",
-                  marginBottom: 16,
+                  width: 38,
+                  height: 38,
+                  background: "var(--surface)",
+                  border: "1px solid rgba(255,255,255,0.08)",
+                  borderRadius: 8,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  color: "var(--muted)",
+                  transition: "all 0.2s",
+                  textDecoration: "none",
+                }}
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLElement).style.background =
+                    "rgba(99,102,241,0.15)";
+                  (e.currentTarget as HTMLElement).style.color =
+                    "var(--brand2)";
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLElement).style.background =
+                    "var(--surface)";
+                  (e.currentTarget as HTMLElement).style.color = "var(--muted)";
                 }}
               >
-                {col.title}
-              </div>
-              <div
-                style={{ display: "flex", flexDirection: "column", gap: 10 }}
-              >
-                {col.links.map((link) => (
-                  <a
-                    key={link}
-                    href="#"
-                    style={{
-                      fontSize: 13,
-                      color: "var(--muted)",
-                      textDecoration: "none",
-                      transition: "color 0.2s",
-                    }}
-                    onMouseEnter={(e) =>
-                      ((e.target as HTMLElement).style.color = "var(--text)")
-                    }
-                    onMouseLeave={(e) =>
-                      ((e.target as HTMLElement).style.color = "var(--muted)")
-                    }
-                  >
-                    {link}
-                  </a>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Bottom bar */}
-        <div
-          style={{
-            borderTop: "1px solid rgba(255,255,255,0.06)",
-            padding: "20px 0",
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            flexWrap: "wrap",
-            gap: 12,
-          }}
-        >
-          <span style={{ fontSize: 13, color: "var(--muted)" }}>
-            © 2026 Karmyug Techzone Pvt Ltd. Made with ♥ in India.
-          </span>
-          <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-            <div
-              style={{
-                width: 7,
-                height: 7,
-                background: "#10b981",
-                borderRadius: "50%",
-              }}
-              className="animate-pulse2"
-            />
-            <span style={{ fontSize: 12, color: "#10b981", fontWeight: 600 }}>
-              All systems operational
-            </span>
+                <Icon size={17} />
+              </a>
+            ))}
           </div>
         </div>
       </div>
       <style>{`
-        @media (max-width: 767px) { .footer-grid { grid-template-columns: 1fr 1fr !important; } }
-        @media (min-width: 768px) and (max-width: 1023px) { .footer-grid { grid-template-columns: 1fr 1fr 1fr !important; } }
+        @media (max-width: 767px) {
+          .footer-contact-row {
+            flex-direction: column;
+            gap: 10px !important;
+            align-items: center;
+          }
+        }
       `}</style>
     </footer>
   );
