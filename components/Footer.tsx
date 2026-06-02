@@ -56,7 +56,7 @@ export default function Footer() {
                 marginBottom: 14,
               }}
             >
-              <div
+              {/* <div
                 style={{
                   width: 36,
                   height: 36,
@@ -68,7 +68,7 @@ export default function Footer() {
                 }}
               >
                 <GraduationCap size={20} color="white" />
-              </div>
+              </div> */}
               <span
                 style={{ fontSize: 18, fontWeight: 800, color: "var(--text)" }}
               >

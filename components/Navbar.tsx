@@ -53,7 +53,7 @@ export default function Navbar() {
               textDecoration: "none",
             }}
           >
-            <div
+            {/* <div
               style={{
                 width: 36,
                 height: 36,
@@ -65,7 +65,7 @@ export default function Navbar() {
               }}
             >
               <GraduationCap size={20} color="white" />
-            </div>
+            </div> */}
             <span
               style={{
                 fontSize: 20,
